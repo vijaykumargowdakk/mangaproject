@@ -10,6 +10,7 @@ from pipeline import load_config, get_job_dir
 
 
 # Prompt sent to the vision model for each panel
+'''
 ANALYSIS_PROMPT = """You are a manga scene analyst. Given a manga panel image, return ONLY
 valid JSON with these fields:
 {
@@ -28,6 +29,33 @@ Rules:
 - "dialogue" should be empty string if no speech bubbles are visible.
 """
 
+'''
+
+ANALYSIS_PROMPT = """You are an expert manga scene analyst. Carefully examine the provided black-and-white manga panel.
+
+Your task is to describe the scene so a narrator can read it. 
+Pay close attention to:
+1. Character actions and interactions.
+2. Facial expressions (exaggerated manga expressions, sweat drops, anger veins, etc.).
+3. The environment or background context.
+4. Any visible text or dialogue in speech bubbles (remember Japanese manga reads right-to-left).
+
+Return ONLY valid JSON with these fields:
+{
+  "characters": ["list of characters visible"],
+  "action": "A highly descriptive, narrative sentence of what is happening in the panel",
+  "emotion": "dominant emotion of the characters",
+  "dialogue": "exact text visible in speech bubbles (empty string if none)",
+  "mood": "one of: tense, calm, comedic, dramatic, romantic, action",
+  "is_splash": false
+}
+
+Rules:
+- Return ONLY the JSON object, no markdown fences, no explanation.
+- If you cannot determine a field, use a reasonable default.
+- "is_splash" should be true only for full-page dramatic panels.
+- Do not mention the word "panel" or "image" in your action description, describe it as if it is happening live.
+"""
 
 def check_ollama_available(host: str = "http://localhost:11434") -> bool:
     """Check if Ollama server is running and reachable.

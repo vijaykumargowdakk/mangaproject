@@ -15,13 +15,13 @@ panel_detection:
 scene_analysis:
   engine: ollama
   ollama_host: http://localhost:11434
-  vision_model: moondream  # or llava:7b, llava:13b
+  vision_model: llava  # Changed from moondream
   max_retries: 3
 
 narration:
-  script_model: mistral:7b  # or llama3:8b
-  context_window: 2         # how many prev panels to include
-  tts_engine: edge          # coqui, edge, or pyttsx3
+  script_model: llama3  # Changed from mistral:7b
+  context_window: 2     
+  tts_engine: edge      
   tts_model: tts_models/en/ljspeech/tacotron2-DDC
   silence_pad_ms: 300
 
