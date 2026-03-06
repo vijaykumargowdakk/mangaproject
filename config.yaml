@@ -15,11 +15,11 @@ panel_detection:
 scene_analysis:
   engine: ollama
   ollama_host: http://localhost:11434
-  vision_model: llava  # Changed from moondream
+  vision_model: llava:latest  # Changed from moondream
   max_retries: 3
 
 narration:
-  script_model: llama3  # Changed from mistral:7b
+  script_model: llama3:latest  # Changed from mistral:7b
   context_window: 2     
   tts_engine: edge      
   tts_model: tts_models/en/ljspeech/tacotron2-DDC
