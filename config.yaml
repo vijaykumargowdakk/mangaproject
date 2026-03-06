@@ -1,0 +1,38 @@
+# MangaMotion Configuration
+
+pdf_extraction:
+  dpi_scale: 2          # 1=150dpi, 2=300dpi, 3=450dpi
+  colorspace: rgb       # rgb or gray
+  output_format: png    # png or jpeg
+
+panel_detection:
+  reading_direction: rtl    # rtl (Japanese) or ltr (Western)
+  engine: opencv            # opencv or kumiko
+  min_panel_area_pct: 0.04  # ignore panels < 4% of page
+  panel_padding_px: 12
+  row_overlap_threshold: 0.5
+
+scene_analysis:
+  engine: ollama
+  ollama_host: http://localhost:11434
+  vision_model: moondream  # or llava:7b, llava:13b
+  max_retries: 3
+
+narration:
+  script_model: mistral:7b  # or llama3:8b
+  context_window: 2         # how many prev panels to include
+  tts_engine: edge          # coqui, edge, or pyttsx3
+  tts_model: tts_models/en/ljspeech/tacotron2-DDC
+  silence_pad_ms: 300
+
+video:
+  resolution: 1920x1080
+  fps: 24
+  codec: libx264
+  crf: 20               # 18=high quality, 28=smaller file
+  ken_burns: true
+  ken_burns_zoom: 1.15  # max zoom level
+  background_music: false
+  music_volume_db: -15  # relative to narration
+  dialogue_overlay: true
+  dialogue_font: Bangers

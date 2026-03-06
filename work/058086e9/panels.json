@@ -1,0 +1,42 @@
+[
+  {
+    "panel_id": "panel_0000",
+    "image_path": "D:\\mangaproject\\work\\058086e9\\panels\\panel_0000.png",
+    "characters": [],
+    "action": "Scene depicted in manga panel",
+    "emotion": "neutral",
+    "dialogue": "",
+    "mood": "calm",
+    "is_splash": false
+  },
+  {
+    "panel_id": "panel_0001",
+    "image_path": "D:\\mangaproject\\work\\058086e9\\panels\\panel_0001.png",
+    "characters": [],
+    "action": "Scene depicted in manga panel",
+    "emotion": "neutral",
+    "dialogue": "",
+    "mood": "calm",
+    "is_splash": false
+  },
+  {
+    "panel_id": "panel_0002",
+    "image_path": "D:\\mangaproject\\work\\058086e9\\panels\\panel_0002.png",
+    "characters": [],
+    "action": "Scene depicted in manga panel",
+    "emotion": "neutral",
+    "dialogue": "",
+    "mood": "calm",
+    "is_splash": false
+  },
+  {
+    "panel_id": "panel_0003",
+    "image_path": "D:\\mangaproject\\work\\058086e9\\panels\\panel_0003.png",
+    "characters": [],
+    "action": "Scene depicted in manga panel",
+    "emotion": "neutral",
+    "dialogue": "",
+    "mood": "calm",
+    "is_splash": false
+  }
+]

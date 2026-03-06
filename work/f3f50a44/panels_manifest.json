@@ -1,0 +1,50 @@
+[
+  {
+    "panel_id": "panel_0000",
+    "image_path": "D:\\mangaproject\\work\\f3f50a44\\panels\\panel_0000.png",
+    "page_index": 0,
+    "page_file": "page_0000.png",
+    "bbox": {
+      "x": 1158,
+      "y": 0,
+      "w": 841,
+      "h": 1006
+    }
+  },
+  {
+    "panel_id": "panel_0001",
+    "image_path": "D:\\mangaproject\\work\\f3f50a44\\panels\\panel_0001.png",
+    "page_index": 0,
+    "page_file": "page_0000.png",
+    "bbox": {
+      "x": 0,
+      "y": 261,
+      "w": 1151,
+      "h": 745
+    }
+  },
+  {
+    "panel_id": "panel_0002",
+    "image_path": "D:\\mangaproject\\work\\f3f50a44\\panels\\panel_0002.png",
+    "page_index": 0,
+    "page_file": "page_0000.png",
+    "bbox": {
+      "x": 0,
+      "y": 1105,
+      "w": 2003,
+      "h": 1039
+    }
+  },
+  {
+    "panel_id": "panel_0003",
+    "image_path": "D:\\mangaproject\\work\\f3f50a44\\panels\\panel_0003.png",
+    "page_index": 0,
+    "page_file": "page_0000.png",
+    "bbox": {
+      "x": 485,
+      "y": 2222,
+      "w": 1285,
+      "h": 796
+    }
+  }
+]
