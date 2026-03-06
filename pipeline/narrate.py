@@ -10,6 +10,7 @@ from pipeline import load_config, get_job_dir
 
 
 # Narrator prompt template for the text LLM
+'''
 NARRATOR_PROMPT = """You are narrating a manga. Given the scene description below, write
 1-3 sentences of cinematic narration. Be evocative, not just descriptive.
 Match the mood. If there is dialogue, quote it naturally.
@@ -19,6 +20,17 @@ Previous context: {context}
 
 Write ONLY the narration text, no extra commentary."""
 
+'''
+
+# Narrator prompt template for the text LLM
+NARRATOR_PROMPT = """You are a professional voiceover narrator for a cinematic manga video.
+Read the scene description and write EXACTLY 1 to 3 sentences of immersive narration.
+Blend the character actions, emotions, and dialogue into a smooth, evocative read.
+
+Scene: {scene}
+Previous context: {context}
+
+CRITICAL INSTRUCTION: Return ONLY the raw narration text. Do NOT include phrases like "Here is the narration". Do NOT wrap the text in quotes. Start the story immediately."""
 
 def generate_narration(
     panels_json_path: str | Path,
@@ -123,11 +135,34 @@ def _generate_scripts(
         prompt = NARRATOR_PROMPT.format(scene=scene, context=context)
 
         # Try Ollama first
+        '''
         try:
             narration = _call_ollama_text(host, model, prompt)
             if narration and narration.strip():
                 narrations.append(narration.strip())
                 continue
+        except Exception:
+            pass
+        '''
+        # Try Ollama first
+        try:
+            narration = _call_ollama_text(host, model, prompt)
+            if narration and narration.strip():
+                # --- NEW: Anti-Chatter Filter for Llama 3 ---
+                clean_narration = narration.strip()
+                # Remove common AI intro phrases
+                bad_prefixes = ["Here is the narration:", "Here's the narration:", "Narration:"]
+                for prefix in bad_prefixes:
+                    if clean_narration.lower().startswith(prefix.lower()):
+                        clean_narration = clean_narration[len(prefix):].strip()
+                # Remove surrounding quotes if Llama 3 added them
+                if clean_narration.startswith('"') and clean_narration.endswith('"'):
+                    clean_narration = clean_narration[1:-1].strip()
+                # --------------------------------------------
+                
+                if clean_narration:
+                    narrations.append(clean_narration)
+                    continue
         except Exception:
             pass
 

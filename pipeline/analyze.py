@@ -4,6 +4,8 @@ import base64
 import json
 import re
 import requests
+import io                     # <-- NEW
+from PIL import Image         # <-- NEW
 from pathlib import Path
 
 from pipeline import load_config, get_job_dir
@@ -162,9 +164,44 @@ def _analyze_single_panel(
     Returns:
         Dict with panel analysis results.
     """
+    '''
     # Read and encode image
     with open(panel_path, "rb") as f:
         image_b64 = base64.b64encode(f.read()).decode("utf-8")
+    '''
+
+    # --- NEW: Safely format image for Llava ---
+    try:
+        with Image.open(panel_path) as img:
+            # 1. Convert to RGB (Strips the Alpha channel that crashes Llava)
+            if img.mode != 'RGB':
+                img = img.convert('RGB')
+            
+            # 2. Resize if massive (Llava only needs ~1024px to see clearly)
+            max_size = 1024
+            if max(img.width, img.height) > max_size:
+                img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+            
+            # 3. Save to a temporary memory buffer as a safe JPEG
+            buffer = io.BytesIO()
+            img.save(buffer, format="JPEG")
+            image_b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    except Exception as e:
+        print(f"  Warning: Image formatting failed for {panel_id}: {e}")
+        # Default result in case all retries fail
+        default_result = {
+            "panel_id": panel_id,
+            "image_path": str(panel_path),
+            "characters": [],
+            "action": "Scene depicted in manga panel",
+            "emotion": "neutral",
+            "dialogue": "",
+            "mood": "calm",
+            "is_splash": False,
+        }
+        return default_result
+    # ------------------------------------------
+
 
     # Default result in case all retries fail
     default_result = {
